@@ -218,3 +218,5 @@ else:
                     st.dataframe(pivot[[*columnas_porcentaje, "Cumple Meta"]])
                 else:
                     st.warning("No se encontraron datos suficientes o la columna 'ESTATUS DE USUARIO' no está disponible.")
+
+st.write("Columnas detectadas:", df.columns.tolist())
