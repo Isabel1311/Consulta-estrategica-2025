@@ -208,7 +208,7 @@ else:
                         else:
                             pivot[f"% {col}"] = 0
 
-                    pivot["% Visado+Auto"] = pivot.get("% VISA", 0) + pivot.get("% AUTO", 0)
+                    pivot["% Visa+Auto"] = pivot.get("% VISA", 0) + pivot.get("% AUTO", 0)
                     pivot["Cumple Meta"] = (pivot.get("% ATEN", 0) <= 15) & (pivot["% Visa+Auto"] >= 85)
                     pivot["Cumple Meta"] = pivot["Cumple Meta"].apply(lambda x: "✅" if x else "❌")
 
