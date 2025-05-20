@@ -209,7 +209,7 @@ else:
                     tabla = df_filtrado.groupby(["PROVEEDOR", "ESTATUS DE USUARIO"]).size().unstack(fill_value=0)
                     tabla["TOTAL"] = tabla.sum(axis=1)
                     # Ajusta los nombres según tu archivo real: VISA, VISADO, AUTO, ATEN, etc.
-                    cols_visado = [col for col in tabla.columns if "VIS" in col or "VISA" in col or "VISADO" in col]
+                    cols_visado = [col for col in tabla.columns if "VISA" in col or "VISA" in col or "VISA" in col]
                     col_auto = [col for col in tabla.columns if "AUTO" in col]
                     col_aten = [col for col in tabla.columns if "ATEN" in col]
                     tabla["% VISADO"] = tabla[cols_visado].sum(axis=1) / tabla["TOTAL"] * 100 if cols_visado else 0
@@ -217,7 +217,7 @@ else:
                     tabla["% ATEN"] = tabla[col_aten].sum(axis=1) / tabla["TOTAL"] * 100 if col_aten else 0
                     tabla["% Cumplimiento (Visa+Auto)"] = tabla["% VISADO"] + tabla["% AUTO"]
                     tabla["Cumple Meta"] = ((tabla["% Cumplimiento (Visa+Auto)"] >= 85) & (tabla["% ATEN"] <= 15)).map({True: "✅", False: "❌"})
-                    cols_show = ["% VISADO", "% AUTO", "% ATEN", "% Cumplimiento (Visa+Auto)", "Cumple Meta"]
+                    cols_show = ["% VISA", "% AUTO", "% ATEN", "% Cumplimiento (Visa+Auto)", "Cumple Meta"]
                     st.dataframe(tabla[cols_show].round(2))
                 else:
                     st.warning("No se encontraron datos suficientes o la columna 'ESTATUS DE USUARIO' no está disponible.")
