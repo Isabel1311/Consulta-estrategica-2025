@@ -192,14 +192,14 @@ else:
                 st.plotly_chart(fig_dia, use_container_width=True)
 
             with tabs[3]:
-                st.subheader("🎯 Evaluación de cumplimiento por estatus de sistema")
+                st.subheader("🎯 Evaluación de cumplimiento por estatus de usuario")
 
-                if "ESTATUS DE SISTEMA" in df_filtrado.columns and not df_filtrado.empty:
-                    tabla_estatus = df_filtrado.groupby(["PROVEEDOR", "ESTATUS DE SISTEMA"]).agg(FOLIOS=("ORDEN", "count")).reset_index()
+                if "ESTATUS DE USUARIO" in df_filtrado.columns and not df_filtrado.empty:
+                    tabla_estatus = df_filtrado.groupby(["PROVEEDOR", "ESTATUS DE USUARIO"]).agg(FOLIOS=("ORDEN", "count")).reset_index()
                     total_por_proveedor = tabla_estatus.groupby("PROVEEDOR")["FOLIOS"].sum().reset_index(name="TOTAL")
                     tabla_estatus = pd.merge(tabla_estatus, total_por_proveedor, on="PROVEEDOR")
 
-                    pivot = tabla_estatus.pivot(index="PROVEEDOR", columns="ESTATUS DE SISTEMA", values="FOLIOS").fillna(0)
+                    pivot = tabla_estatus.pivot(index="PROVEEDOR", columns="ESTATUS DE USUARIO", values="FOLIOS").fillna(0)
                     pivot["TOTAL"] = pivot.sum(axis=1)
 
                     for col in ["ATEN", "VISA", "AUTO"]:
@@ -217,4 +217,4 @@ else:
 
                     st.dataframe(pivot[[*columnas_porcentaje, "Cumple Meta"]])
                 else:
-                    st.warning("No se encontraron datos suficientes o la columna 'ESTATUS DE SISTEMA' no está disponible.")
+                    st.warning("No se encontraron datos suficientes o la columna 'ESTATUS DE USUARIO' no está disponible.")
